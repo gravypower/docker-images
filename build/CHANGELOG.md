@@ -1,7 +1,7 @@
 # Changelog
 
 ## December 2020
-
+- [Added] Sitecore JSS v15.0.1 See [#474](https://github.com/Sitecore/docker-images/issues/474). Thanks [@vtml](https://github.com/vtml) :+1:
 - [Added] re-tagged versions of sitecore-docker-tools-assets (now called custom-sitecore-docker-tools-assets)
 - [Changed] Download-Module-Prerequisites.ps1 to use new CDN urls and no longer require username/password
 - [Added] Automatic download and extract of Horizon assets
@@ -10,6 +10,10 @@
 - [Fixed] Sitecore 10.0.0 SXA / JSS missing Web.config transforms. See [#387](https://github.com/Sitecore/docker-images/issues/387). Thanks [@vtml](https://github.com/vtml) :+1:
 - [Added] Windows 2009 is now supported. You can override which platforms you want by setting the parameter `AutoGenerateWindowsVersionTags` when calling `Invoke-Build`, default value is now: `"2009", "2004", "1909", "1903", "ltsc2019"`.
 - [Added] Sitecore 10.0.1 community modules Linux/Windows Coveo for Sitecore and Coveo for Sitecore SXA 5.0.858.1 assets images
+- [Added] Global Downloads Support
+- [Changed] Removed username/password from documentation. Fixed Test-SitecorePackages and sorted packages.
+- [Changed] Removed -Property FullName from Get-Item "C:\Program Files\Microsoft SQL Server\*\DAC\bin\SqlPackage.exe" | Select-Object -Last 1 -ExpandProperty FullName.
+- [Changed] Collapsed 10.x.x folders into version-specific to greatly improve upgradability. Added build\New-SitecoreVersion.ps1 script.
 
 ## November 2020
 
