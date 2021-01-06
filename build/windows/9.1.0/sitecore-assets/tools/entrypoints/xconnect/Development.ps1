@@ -58,7 +58,7 @@ function Wait-WebItemState
 }
 
 # print start message
-Write-Host ("$(Get-Date -Format $timeFormat): Sitecore Development ENTRYPOINT, starting...")
+Write-Host "$(Get-Date -Format $timeFormat): xConnect Development ENTRYPOINT, starting..."
 
 # wait for w3wp to stop
 while ($true)
@@ -94,16 +94,16 @@ if ($useVsDebugger)
     # start msvsmon.exe in background
     & "C:\remote_debugger\x64\msvsmon.exe" /noauth /anyuser /silent /nostatus /noclrwarn /nosecuritywarn /nofirewallwarn /nowowwarn /timeout:2147483646
 
-    Write-Host ("$(Get-Date -Format $timeFormat): Started 'msvsmon.exe'.")
+    Write-Host "$(Get-Date -Format $timeFormat): Started 'msvsmon.exe'."
 }
 else
 {
-    Write-Host ("$(Get-Date -Format $timeFormat): Skipping start of 'msvsmon.exe', to enable you should mount the Visual Studio Remote Debugger directory into 'C:\remote_debugger'.")
+    Write-Host "$(Get-Date -Format $timeFormat): Skipping start of 'msvsmon.exe', to enable you should mount the Visual Studio Remote Debugger directory into 'C:\remote_debugger'."
 }
 
 # check to see if we should start the Watch-Directory.ps1 script
 $watchDirectoryJobName = "Watch-Directory.ps1"
-$useWatchDirectory = $null -ne $WatchDirectoryParameters -bor (Test-Path -Path "C:\src" -PathType "Container") -eq $true
+$useWatchDirectory = (Test-Path -Path "C:\src" -PathType "Container") -eq $true
 
 if ($useWatchDirectory)
 {
@@ -147,13 +147,7 @@ if ($useWatchDirectory)
 }
 else
 {
-    Write-Host ("$(Get-Date -Format $timeFormat): Skipping start of '$watchDirectoryJobName', to enable you should mount a directory into 'C:\src'.")
-}
-
-# inject Sitecore config files
-if (Test-Path -Path "C:\inetpub\wwwroot\App_Config\Include" -PathType "Container")
-{
-    Copy-Item -Path (Join-Path $PSScriptRoot "\*.config") -Destination "C:\inetpub\wwwroot\App_Config\Include"
+    Write-Host "$(Get-Date -Format $timeFormat): Skipping start of '$watchDirectoryJobName', to enable you should mount a directory into 'C:\src'."
 }
 
 # start ServiceMonitor.exe in background, kill foreground process if it fails
@@ -186,27 +180,12 @@ while ($true)
 
     Start-Sleep -Milliseconds 500
 }
-# Create licence file environment variable
-$licenseString = $env:SITECORE_LICENSE;
-if ($licenseString) {
-    $data = [System.Convert]::FromBase64String($licenseString)
-    $ms = New-Object System.IO.MemoryStream
-    $ms.Write($data, 0, $data.Length)
-    $ms.Seek(0,0) | Out-Null
-
-    $cs = New-Object System.IO.Compression.GZipStream($ms, [System.IO.Compression.CompressionMode]::Decompress)
-    $sr = New-Object System.IO.StreamReader($cs)
-    $t = $sr.readtoend()
-    New-Item -Path "c:\" -Name "license" -ItemType "directory"
-    $t | Out-File C:\license\license.xml
-}
-
 
 # wait for application pool to start
 Wait-WebItemState -IISPath "IIS:\AppPools\DefaultAppPool" -State "Started"
 
 # print ready message
-Write-Host ("$(Get-Date -Format $timeFormat): Sitecore ready!")
+Write-Host "$(Get-Date -Format $timeFormat): xConnect ready!"
 
 # start filebeat.exe in foreground
 & "C:\tools\bin\filebeat\filebeat.exe" -c (Join-Path $PSScriptRoot "\filebeat.yml")

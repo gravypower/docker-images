@@ -1,0 +1,17 @@
+<!--
+
+    IIS 7.0 and IIS 7.5 contain incorrect system.codedom sections in their FX_schema.xml files.
+    This version was taken from IIS 8.5 and contains the correct validations for the default web.config
+    in the CLR 4.0 folder. This file is only required on Windows Vista, 7, Server 2008 and Server 2008 R2.
+
+-->
+<configSchema>
+    <sectionSchema name="appSettings">
+        <attribute name="file" type="string" />
+        <attribute name="configBuilders" type="string" />
+        <collection addElement="add" removeElement="remove" clearElement="clear">
+            <attribute name="key" isUniqueKey="true" type="string" />
+            <attribute name="value" type="string" />
+        </collection>
+    </sectionSchema>
+</configSchema>

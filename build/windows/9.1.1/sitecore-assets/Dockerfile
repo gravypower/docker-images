@@ -25,6 +25,11 @@ RUN & 'C:\\install\\tools\\bin\\nuget.exe' install 'Microsoft.Web.Xdt' -Version 
     Copy-Item -Path 'C:\\install\\Microsoft.Web.Xdt*\\lib\\netstandard2.0\\*.dll' -Destination 'C:\\install\\tools\\bin'; `
     Remove-Item -Path (Get-Item -Path 'C:\\install\\Microsoft.Web.Xdt*\\').FullName -Recurse -Force;
 
+# install microsoft environment varable configuration builder
+RUN & 'C:\\install\\tools\\bin\\nuget.exe' install 'Microsoft.Configuration.ConfigurationBuilders.Environment' -Version '1.0.1' -OutputDirectory 'C:\\install'; `
+    Copy-Item -Path 'C:\\install\\Microsoft.Configuration.ConfigurationBuilders*\\lib\\Net471\\*.dll' -Destination 'C:\\install\\tools\\bin'; `
+    Remove-Item -Path (Get-Item -Path 'C:\\install\\Microsoft.Configuration.ConfigurationBuilders*\\').FullName -Recurse -Force;
+
 # install filebeat
 RUN Expand-Archive -Path 'C:\\downloads\\filebeat.zip' -DestinationPath 'C:\\install\\tools\\bin' -Force; `
     Rename-Item -Path (Get-Item -Path 'C:\\install\\tools\\bin\\filebeat*windows*').FullName -NewName "filebeat"; `

@@ -49,7 +49,6 @@ ARG SC_ROLE_DEFINE
 COPY --from=build ["C:\\inetpub\\wwwroot\\", "C:\\inetpub\\wwwroot\\"]
 COPY --from=assets ["C:\\install\\patches\\FX_schema.patch.xml", "C:\\Windows\\System32\\inetsrv\\config\\schema"]
 
-
 RUN $env:INSTALL_TEMP = 'C:\\inetpub\\wwwroot\\temp\\install'; `
     $env:IIS_SITE_PATH = 'IIS:\Sites\Default Web Site'; `
     $env:IIS_SITE_HOMEDIR_PATH = 'C:\\inetpub\\wwwroot'; `
