@@ -26,7 +26,7 @@ RUN Copy-Item -Path 'C:\\inetpub\\wwwroot\\App_Config\\Include\\Examples\\Siteco
 COPY --from=assets ["C:\\install\\tools\\", "C:\\inetpub\\wwwroot\\temp\\install\\tools\\"]
 COPY ${SC_ROLE_CONFIG_DIRECTORY} C:\\inetpub\\wwwroot\\
 
-# copy microsoft environment varable configuration builder
+# copy Microsoft environment variable configuration builder
 RUN Copy-Item -Path 'C:\\inetpub\\wwwroot\\temp\\install\\tools\\bin\\Microsoft.Configuration.ConfigurationBuilders*.dll' -Destination 'C:\\inetpub\\wwwroot\\bin\\';
 
 # find transform files and do transformation
