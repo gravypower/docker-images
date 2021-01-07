@@ -26,6 +26,7 @@ COPY .\\config\\ C:\\AutomationEngine\\
 # find transform files, replace variables and do transformation
 RUN $env:XCONNECT_CLIENT_CERT_THUMBPRINT = (Get-Content -Path 'C:\\AutomationEngine\\temp\\install\\certificates\\xconnect-client.thumbprint' | Out-String).Trim(); `
     $xdts = [System.Collections.ArrayList]@(); `
+    $xdts.AddRange(@(Get-ChildItem -Path 'C:\\AutomationEngine\\*.xdt' -Recurse)); `
     $xdts.AddRange(@(Get-ChildItem -Path 'C:\\AutomationEngine\\App_Config\\*.xdt' -Recurse)); `
     $xdts | ForEach-Object { (Get-Content -Path $_.FullName).Replace('${xconnect_client_certificate_thumbprint}', $env:XCONNECT_CLIENT_CERT_THUMBPRINT) | Out-File -FilePath $_.FullName -Encoding utf8; }; `
     $xdts | ForEach-Object { & 'C:\\AutomationEngine\\temp\\install\\tools\\scripts\\Invoke-XdtTransform.ps1' -Path $_.FullName.Replace('.xdt', '') -XdtPath $_.FullName -XdtDllPath 'C:\\AutomationEngine\\temp\\install\\tools\\bin\\Microsoft.Web.XmlTransform.dll'; }; `
@@ -36,6 +37,9 @@ FROM $BASE_IMAGE
 SHELL ["powershell", "-Command", "$ErrorActionPreference = 'Stop'; $ProgressPreference = 'SilentlyContinue';"]
 
 COPY --from=build ["C:\\AutomationEngine\\", "C:\\AutomationEngine\\"]
+
+#patch in the configBuilders attibute for web.config validation
+COPY --from=assets ["C:\\install\\patches\\FX_schema.patch.xml", "C:\\Windows\\System32\\inetsrv\\config\\schema"]
 
 RUN $env:INSTALL_TEMP = 'C:\\AutomationEngine\\temp\\install'; `
     # install tools

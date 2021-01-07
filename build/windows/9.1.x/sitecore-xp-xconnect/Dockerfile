@@ -42,6 +42,9 @@ SHELL ["powershell", "-Command", "$ErrorActionPreference = 'Stop'; $ProgressPref
 
 COPY --from=build ["C:\\inetpub\\wwwroot\\", "C:\\inetpub\\wwwroot\\"]
 
+#patch in the configBuilders attibute for web.config validation
+COPY --from=assets ["C:\\install\\patches\\FX_schema.patch.xml", "C:\\Windows\\System32\\inetsrv\\config\\schema"]
+
 # copy serilog assemblies
 COPY --from=assets ["C:\\install\\bin\\serilog", "C:\\inetpub\\wwwroot\\bin"]
 

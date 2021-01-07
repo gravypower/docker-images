@@ -47,6 +47,8 @@ SHELL ["powershell", "-Command", "$ErrorActionPreference = 'Stop'; $ProgressPref
 ARG SC_ROLE_DEFINE
 
 COPY --from=build ["C:\\inetpub\\wwwroot\\", "C:\\inetpub\\wwwroot\\"]
+
+#patch in the configBuilders attibute for web.config validation
 COPY --from=assets ["C:\\install\\patches\\FX_schema.patch.xml", "C:\\Windows\\System32\\inetsrv\\config\\schema"]
 
 RUN $env:INSTALL_TEMP = 'C:\\inetpub\\wwwroot\\temp\\install'; `

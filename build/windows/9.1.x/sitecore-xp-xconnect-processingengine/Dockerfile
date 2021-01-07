@@ -23,10 +23,13 @@ COPY --from=assets ["C:\\install\\tools\\", "C:\\ProcessingEngine\\temp\\install
 COPY --from=certificates ["C:\\certificates\\", "C:\\ProcessingEngine\\temp\\install\\certificates\\"]
 COPY .\\config\\ C:\\ProcessingEngine\\
 
+# copy Microsoft environment variable configuration builder
+RUN Copy-Item -Path 'C:\\inetpub\\wwwroot\\temp\\install\\tools\\bin\\Microsoft.Configuration.ConfigurationBuilders*.dll' -Destination 'C:\\inetpub\\wwwroot\\bin\\';
+
 # find transform files, replace variables and do transformation
 RUN $env:XCONNECT_CLIENT_CERT_THUMBPRINT = (Get-Content -Path 'C:\\ProcessingEngine\\temp\\install\\certificates\\xconnect-client.thumbprint' | Out-String).Trim(); `
     $xdts = [System.Collections.ArrayList]@(); `
-    $xdts.AddRange(@(Get-ChildItem -Path 'C:\\ProcessingEngine\\App_Config\\*.xdt' -Recurse)); `
+    $xdts.AddRange(@(Get-ChildItem -Path 'C:\\ProcessingEngine\\*.xdt' -Recurse)); `
     $xdts.AddRange(@(Get-ChildItem -Path 'C:\\ProcessingEngine\\App_Data\\Config\\*.xdt' -Recurse)); `
     $xdts | ForEach-Object { (Get-Content -Path $_.FullName).Replace('${xconnect_client_certificate_thumbprint}', $env:XCONNECT_CLIENT_CERT_THUMBPRINT) | Out-File -FilePath $_.FullName -Encoding utf8; }; `
     $xdts | ForEach-Object { & 'C:\\ProcessingEngine\\temp\\install\\tools\\scripts\\Invoke-XdtTransform.ps1' -Path $_.FullName.Replace('.xdt', '') -XdtPath $_.FullName -XdtDllPath 'C:\\ProcessingEngine\\temp\\install\\tools\\bin\\Microsoft.Web.XmlTransform.dll'; }; `
@@ -37,6 +40,9 @@ FROM $BASE_IMAGE
 SHELL ["powershell", "-Command", "$ErrorActionPreference = 'Stop'; $ProgressPreference = 'SilentlyContinue';"]
 
 COPY --from=build ["C:\\ProcessingEngine\\", "C:\\ProcessingEngine\\"]
+
+#patch in the configBuilders attibute for web.config validation
+COPY --from=assets ["C:\\install\\patches\\FX_schema.patch.xml", "C:\\Windows\\System32\\inetsrv\\config\\schema"]
 
 RUN $env:INSTALL_TEMP = 'C:\\ProcessingEngine\\temp\\install'; `
     # install tools

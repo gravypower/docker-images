@@ -26,6 +26,7 @@ COPY .\\config\\ C:\\IndexWorker\\
 # find transform files, replace variables and do transformation
 RUN $env:XCONNECT_CLIENT_CERT_THUMBPRINT = (Get-Content -Path 'C:\\IndexWorker\\temp\\install\\certificates\\xconnect-client.thumbprint' | Out-String).Trim(); `
     $xdts = [System.Collections.ArrayList]@(); `
+    $xdts.AddRange(@(Get-ChildItem -Path 'C:\\IndexWorker\\*.xdt' -Recurse)); `
     $xdts.AddRange(@(Get-ChildItem -Path 'C:\\IndexWorker\\App_Config\\*.xdt' -Recurse)); `
     $xdts.AddRange(@(Get-ChildItem -Path 'C:\\IndexWorker\\App_Data\\Config\\*.xdt' -Recurse)); `
     $xdts | ForEach-Object { (Get-Content -Path $_.FullName).Replace('${xconnect_client_certificate_thumbprint}', $env:XCONNECT_CLIENT_CERT_THUMBPRINT) | Out-File -FilePath $_.FullName -Encoding utf8; }; `
@@ -37,6 +38,9 @@ FROM $BASE_IMAGE
 SHELL ["powershell", "-Command", "$ErrorActionPreference = 'Stop'; $ProgressPreference = 'SilentlyContinue';"]
 
 COPY --from=build ["C:\\IndexWorker\\", "C:\\IndexWorker\\"]
+
+#patch in the configBuilders attibute for web.config validation
+COPY --from=assets ["C:\\install\\patches\\FX_schema.patch.xml", "C:\\Windows\\System32\\inetsrv\\config\\schema"]
 
 RUN $env:INSTALL_TEMP = 'C:\\IndexWorker\\temp\\install'; `
     # install tools

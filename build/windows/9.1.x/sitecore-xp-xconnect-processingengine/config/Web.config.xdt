@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <configuration xmlns:xdt="http://schemas.microsoft.com/XML-Document-Transform">
-   <configSections>
+    <configSections>
             <section name="configBuilders" type="System.Configuration.ConfigurationBuildersSection, System.Configuration, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" restartOnExternalChanges="false" requirePermission="false" xdt:Transform="Insert"/>
     </configSections>
     <configBuilders xdt:Transform="InsertAfter(/configuration/configSections)" >
@@ -9,8 +9,4 @@
             <add name="SitecoreConnectionStringsBuilder" mode="Strict" prefix="SITECORE_CONNECTIONSTRINGS_" stripPrefix="true" type="Microsoft.Configuration.ConfigurationBuilders.EnvironmentConfigBuilder, Microsoft.Configuration.ConfigurationBuilders.Environment, Version=1.0.0.0, Culture=neutral"/>
         </builders>
     </configBuilders>
-    <system.web>
-        <compilation xdt:Transform="RemoveAttributes(debug)" />
-        <customErrors mode="Off" xdt:Transform="SetAttributes" />
-    </system.web>
 </configuration>

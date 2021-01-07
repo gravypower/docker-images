@@ -49,6 +49,7 @@ RUN New-Item -Path 'C:\\install\\setup' -ItemType 'Directory' -Force | Out-Null;
 # add tools folder
 COPY tools\\ C:\\install\\tools\\
 
+# patch in the configBuilders attibute for web.config validation
 COPY patches\\  C:\\install\\patches\\
 
 FROM $BASE_IMAGE
