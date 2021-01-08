@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<connectionStrings xmlns:xdt="http://schemas.microsoft.com/XML-Document-Transform">
+<connectionStrings xmlns:xdt="http://schemas.microsoft.com/XML-Document-Transform" xdt:Transform="SetAttributes" configBuilders="SitecoreConnectionStringsBuilder">
     <add name="security" connectionString="user id=sa;password=HASH-epsom-sunset-cost7!;Data Source=sql;Database=Sitecore.Core" xdt:Transform="SetAttributes" xdt:Locator="Match(name)"/>
     <add name="web" connectionString="user id=sa;password=HASH-epsom-sunset-cost7!;Data Source=sql;Database=Sitecore.Web" xdt:Transform="SetAttributes" xdt:Locator="Match(name)"/>
     <add name="experienceforms" connectionString="user id=sa;password=HASH-epsom-sunset-cost7!;Data Source=sql;Database=Sitecore.ExperienceForms" xdt:Transform="SetAttributes" xdt:Locator="Match(name)"/>
