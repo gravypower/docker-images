@@ -23,12 +23,13 @@ COPY --from=assets ["C:\\install\\tools\\", "C:\\IndexWorker\\temp\\install\\too
 COPY --from=certificates ["C:\\certificates\\", "C:\\IndexWorker\\temp\\install\\certificates\\"]
 COPY .\\config\\ C:\\IndexWorker\\
 
+# copy Microsoft environment variable configuration builder
+RUN Copy-Item -Path 'C:\\IndexWorker\\temp\\install\\tools\\bin\\Microsoft.Configuration.ConfigurationBuilders*.dll' -Destination 'C:\\IndexWorker\\';
+
 # find transform files, replace variables and do transformation
 RUN $env:XCONNECT_CLIENT_CERT_THUMBPRINT = (Get-Content -Path 'C:\\IndexWorker\\temp\\install\\certificates\\xconnect-client.thumbprint' | Out-String).Trim(); `
     $xdts = [System.Collections.ArrayList]@(); `
     $xdts.AddRange(@(Get-ChildItem -Path 'C:\\IndexWorker\\*.xdt' -Recurse)); `
-    $xdts.AddRange(@(Get-ChildItem -Path 'C:\\IndexWorker\\App_Config\\*.xdt' -Recurse)); `
-    $xdts.AddRange(@(Get-ChildItem -Path 'C:\\IndexWorker\\App_Data\\Config\\*.xdt' -Recurse)); `
     $xdts | ForEach-Object { (Get-Content -Path $_.FullName).Replace('${xconnect_client_certificate_thumbprint}', $env:XCONNECT_CLIENT_CERT_THUMBPRINT) | Out-File -FilePath $_.FullName -Encoding utf8; }; `
     $xdts | ForEach-Object { & 'C:\\IndexWorker\\temp\\install\\tools\\scripts\\Invoke-XdtTransform.ps1' -Path $_.FullName.Replace('.xdt', '') -XdtPath $_.FullName -XdtDllPath 'C:\\IndexWorker\\temp\\install\\tools\\bin\\Microsoft.Web.XmlTransform.dll'; }; `
     $xdts | ForEach-Object { Remove-Item -Path $_.FullName; };

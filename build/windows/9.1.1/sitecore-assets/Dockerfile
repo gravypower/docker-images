@@ -30,6 +30,13 @@ RUN & 'C:\\install\\tools\\bin\\nuget.exe' install 'Microsoft.Configuration.Conf
     Copy-Item -Path 'C:\\install\\Microsoft.Configuration.ConfigurationBuilders*\\lib\\Net471\\*.dll' -Destination 'C:\\install\\tools\\bin'; `
     Remove-Item -Path (Get-Item -Path 'C:\\install\\Microsoft.Configuration.ConfigurationBuilders*\\').FullName -Recurse -Force;
 
+# install serilog assembly
+RUN & 'C:\\install\\tools\\bin\\nuget.exe' install 'Serilog.Sinks.UDP' -Version '6.0.0' -OutputDirectory 'C:\\install\\serilog'; `
+    New-Item -Path 'c:\\install\\bin\\serilog' -ItemType 'Directory' -Force | Out-Null; `
+    Copy-Item -Path 'C:\\install\\serilog\\Serilog.Sinks.PeriodicBatching*\\lib\\netstandard2.0\\*.dll' -Destination 'C:\\install\\bin\\serilog\\'; `
+    Copy-Item -Path 'C:\\install\\serilog\\Serilog.Sinks.Udp*\\lib\\netstandard2.0\\*.dll' -Destination 'C:\\install\\bin\\serilog\\'; `
+    Remove-Item -Path (Get-Item -Path 'C:\\install\\Serilog\\').FullName -Recurse -Force;
+
 # install filebeat
 RUN Expand-Archive -Path 'C:\\downloads\\filebeat.zip' -DestinationPath 'C:\\install\\tools\\bin' -Force; `
     Rename-Item -Path (Get-Item -Path 'C:\\install\\tools\\bin\\filebeat*windows*').FullName -NewName "filebeat"; `

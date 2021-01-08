@@ -36,6 +36,7 @@
         "--build-arg ASSETS_USE_WDP='C:\\packages\\Sitecore 9.1.0 rev. 001564 (OnPrem)_cm.scwdp.zip'"
       ]
     },
+    {
       "tag": "sitecore-xm-sqldev:9.0.2-windowsservercore-${windowsservercore_version}",
       "build-options": [
         "--memory 4GB",

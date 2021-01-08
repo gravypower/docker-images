@@ -199,6 +199,28 @@
         "url": "https://sitecoredev.azureedge.net/~/media/6E3511461CF843F3A81DF414A39130F8.ashx",
         "hash": "BD6C8F2F7D061117C5F36A74A5C01D336FFF4C3A13FF908571BE08D920D0886E"
     },
+
+
+
+    "Sitecore Experience Accelerator XM 1.8 rev. 181112 for 9.1.scwdp.zip": {
+        "url": "https://sitecoredev.azureedge.net/~/media/D494E255F40A49F097DE86C001495FFD.ashx",
+        "hash": "8CBE42660AF634163AB51B4E42F12AF77B28E8F2A9AD9CC8B043D5F4EF445C86"
+    },
+    "Sitecore Experience Accelerator XM 1.8 rev. 181112 for 9.1 CD.scwdp.zip": {
+        "url": "https://sitecoredev.azureedge.net/~/media/7924C79079E14B0BA17C1B5368733676.ashx",
+        "hash": "D1A844802D74AC1C0764FF367EBBDCF476B457232E8D3DCEC9A12D32981B590C"
+    },
+    "Sitecore Experience Accelerator 1.8 rev. 181112 for 9.1.scwdp.zip": {
+        "url": "https://sitecoredev.azureedge.net/~/media/E5D965AEFE7748D48C8698A3D57F0873.ashx",
+        "hash": "CFEFDBCD9110DE2D9F3D5C189A28DF56C04C15E9DDE38D4E00956A43DD650987"
+    },
+    "Sitecore Experience Accelerator 1.8 rev. 181112 for 9.1 CD.scwdp.zip": {
+        "url": "https://sitecoredev.azureedge.net/~/media/CCCF4483818648DCB9DB55DC9436BBFC.ashx",
+        "hash": "82E5E8AD2E1C523A6396416FAEFDA1630644371C4DC810A7FFDE920754F4A47B"
+    },
+
+
+
     "Sitecore Experience Accelerator 1.8.1 rev. 190319 for 9.0 CD.scwdp.zip": {
         "url": "https://sitecoredev.azureedge.net/~/media/991BBF60AEB142F193B275CBB00503A2.ashx",
         "hash": "67AFB0A022B6EAB6BC09A9AE88A2F9C6090D0BD6F203E030DB48F93E2893A1F9"
@@ -286,6 +308,22 @@
     "Sitecore JavaScript Services Server for Sitecore 10.0.0 XP 15.0.1 rev. 201112.scwdp.zip": {
         "url": "https://sitecoredev.azureedge.net/~/media/76207D15A2A540C5A4772E33D6EC0E6D.ashx",
         "hash": "577B41671B9195EE0F83E858102A64BD7F2B26E3D852D1E3669DEC609F75EB2D"
+    },
+    "Sitecore JavaScript Services Server for Sitecore 9.1 XM 11.0.0 rev. 181113 CD.scwdp.zip": {
+        "url": "https://sitecoredev.azureedge.net/~/media/792F2A59F55548B0B34DFC6D03C48AF6.ashx",
+        "hash": "BB61E3B287F785D46EE7FC1BBD932D994069428692DF9F17A6BF8D88B6E2A94E"
+    },
+    "Sitecore JavaScript Services Server for Sitecore 9.1 XM 11.0.0 rev. 181113.scwdp.zip": {
+        "url": "https://sitecoredev.azureedge.net/~/media/DD6D5F5B216D4674A7D06DD854821AC9.ashx",
+        "hash": "C0848436990FF639C082CE8731EADD4C2894EABAAC5EDC07F61EBDE7F2EF6D39"
+    },
+    "Sitecore JavaScript Services Server for Sitecore 9.1 XP 11.0.0 rev. 181113 CD.scwdp.zip": {
+        "url": "https://sitecoredev.azureedge.net/~/media/2C0271D4DFE94950BA777935DFC40240.ashx",
+        "hash": "F168DFBB576B84BF58C16CD21B09412E709C548E7A201B33FAC3509469E0FD43"
+    },
+    "Sitecore JavaScript Services Server for Sitecore 9.1 XP 11.0.0 rev. 181113.scwdp.zip": {
+        "url": "https://sitecoredev.azureedge.net/~/media/E899E132CB8E4FAEA5305EF0D19A59FC.ashx",
+        "hash": "A0E06CD47716A7D339E781EBAA03C4F8ABD864A5ABFC6C003E28B0AD6D8BBA72"
     },
     "Sitecore JavaScript Services Server for Sitecore 9.1.1 XM 11.0.1 rev. 190318 CD.scwdp.zip": {
         "url": "https://sitecoredev.azureedge.net/~/media/31235F1C19FB4FAB943A6A0DD1EBE9B8.ashx",

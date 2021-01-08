@@ -23,11 +23,13 @@ COPY --from=assets ["C:\\install\\tools\\", "C:\\AutomationEngine\\temp\\install
 COPY --from=certificates ["C:\\certificates\\", "C:\\AutomationEngine\\temp\\install\\certificates\\"]
 COPY .\\config\\ C:\\AutomationEngine\\
 
+# copy Microsoft environment variable configuration builder
+RUN Copy-Item -Path 'C:\\AutomationEngine\\temp\\install\\tools\\bin\\Microsoft.Configuration.ConfigurationBuilders*.dll' -Destination 'C:\\AutomationEngine\\';
+
 # find transform files, replace variables and do transformation
 RUN $env:XCONNECT_CLIENT_CERT_THUMBPRINT = (Get-Content -Path 'C:\\AutomationEngine\\temp\\install\\certificates\\xconnect-client.thumbprint' | Out-String).Trim(); `
     $xdts = [System.Collections.ArrayList]@(); `
     $xdts.AddRange(@(Get-ChildItem -Path 'C:\\AutomationEngine\\*.xdt' -Recurse)); `
-    $xdts.AddRange(@(Get-ChildItem -Path 'C:\\AutomationEngine\\App_Config\\*.xdt' -Recurse)); `
     $xdts | ForEach-Object { (Get-Content -Path $_.FullName).Replace('${xconnect_client_certificate_thumbprint}', $env:XCONNECT_CLIENT_CERT_THUMBPRINT) | Out-File -FilePath $_.FullName -Encoding utf8; }; `
     $xdts | ForEach-Object { & 'C:\\AutomationEngine\\temp\\install\\tools\\scripts\\Invoke-XdtTransform.ps1' -Path $_.FullName.Replace('.xdt', '') -XdtPath $_.FullName -XdtDllPath 'C:\\AutomationEngine\\temp\\install\\tools\\bin\\Microsoft.Web.XmlTransform.dll'; }; `
     $xdts | ForEach-Object { Remove-Item -Path $_.FullName; };
